@@ -41,12 +41,12 @@
         itemView: CartApp.OrderItemView,
         className: "table table-hover",
 
-        intialize : function(){
-
-        },
-
         appendHtml: function (collectionView, itemView) {
             collectionView.$("tbody").append(itemView.el);
+        },
+
+        calculateTotal: function () {
+            $(this.el).find('input').val(this.collection.getTotal());
         }
     });
 });

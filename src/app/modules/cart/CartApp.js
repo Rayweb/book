@@ -38,6 +38,7 @@
                 collection: this.orderCollection
             });
             this.orderView.render();
+            this.orderView.calculateTotal();
             $("#order").html(this.orderView.el);
         },
 
