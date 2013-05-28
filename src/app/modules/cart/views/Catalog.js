@@ -1,5 +1,14 @@
-﻿Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
+Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
     "use strict";
+
+    CartApp.Layout = Backbone.Marionette.Layout.extend({
+        template: "#CatalogLayout",
+        regions: {
+            categories : '#categories',
+            products : '#products',
+            order : '#order'
+        }
+    });
 
     CartApp.BookItemView = Marionette.ItemView.extend({
         template: "#catalogRow",
@@ -7,7 +16,7 @@
         events: { 'click .btn-primary': 'itemClick' },
 
         itemClick: function(){
-            App.vent.trigger("itemAdded", this.model, $(this.el).find('input').val());
+            App.vent.trigger("itemAdded", this.model, this.$('input').val());
         },
 
     });
@@ -16,14 +25,14 @@
         tagName: "table",
         template: "#catalogGrid",
         itemView: CartApp.BookItemView,
-        className: "table table-hover",
+        className: "table table-hover table-condensed",
 
         appendHtml: function (collectionView, itemView) {
             collectionView.$("tbody").append(itemView.el);
         }
     });
 
-    CartApp.OrderItemView = Marionette.ItemView.extend({
+    CartApp.OrderItemView = Backbone.Marionette.ItemView.extend({
         template: "#orderRow",
         tagName: "tr",
 
@@ -45,8 +54,11 @@
             collectionView.$("tbody").append(itemView.el);
         },
 
+        onRender : function(){
+            this.calculateTotal();
+        },
         calculateTotal: function () {
-            $(this.el).find('input').val(this.collection.getTotal());
+            this.$('input').val(this.collection.getTotal());
         }
     });
 });

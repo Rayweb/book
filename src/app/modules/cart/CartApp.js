@@ -5,11 +5,11 @@
         
         orderCollection: {},
         orderView: {},
-        
 
         initialize: function (options) {
             var self = this;
-
+            this.cartLayout = new CartApp.Layout({el:'#main'});
+            this.cartLayout.render();
             App.vent.on("itemAdded", function (model, qty) {
                 self.addProduct(model, qty);
             });
@@ -37,25 +37,25 @@
             this.orderView = new CartApp.OrderListView({
                 collection: this.orderCollection
             });
-            this.orderView.render();
-            this.orderView.calculateTotal();
-            $("#order").html(this.orderView.el);
+            this.cartLayout.order.show(this.orderView);
+            //this.orderView.render();
+            //this.orderView.calculateTotal();
+            //$("#order").html(this.orderView.el);
         },
 
-        loadProducts: function(){
+        loadProducts: function(category,id){
 
             this.orderCollection = new App.BookCollection();
 
             var bookList = new App.BookCollection(Books.CartApp.Books);
-
-            var bookListView = new CartApp.BookListView({
+            if(category){
+                var matched = bookList.where({category:category});
+                bookList.reset(matched);
+            }
+            this.bookListView = new CartApp.BookListView({
                 collection: bookList
             });
-
-            bookListView.render();
-
-            $("#products").html(bookListView.el);
-
+            this.cartLayout.products.show(this.bookListView);
         },
 
     });

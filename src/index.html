@@ -44,7 +44,21 @@
 </head>
 
 <body>
-
+	<script id="CatalogLayout" type="text/template">
+			<div id="Cart" class="row-fluid">
+				<div class="row-fluid">
+					<div id="categories" class="span2">
+					<a href="#Sports">Sports</a><br/>
+					<a href="#Math">Math</a><br/>
+					<a href="#History">History</a><br/>
+					</div>
+					<div id="products" class="span6">
+					</div>
+					<div id="order" class="span4">
+					</div>
+				</div>
+			</div>
+	</script>
     <script id="catalogRow" type="text/template">
         <td> <%= id%></td>
         <td> <%= title%></td>
@@ -90,7 +104,7 @@
             </tr>
         </tfoot>
     </script>
-
+	
     <script id="catalogGrid" type="text/template">
         <thead>
             <tr>
@@ -130,15 +144,10 @@
         </div>
     </div>
 
-    <div id= "main" class="container-fluid">
-        <div class="row-fluid">
-            <div class="row-fluid">
-                <div id="products" class="span8">
-                </div>
-                <div id="order" class="span4">
-                </div>
-            </div>
-        </div>
+    <div id="main" class="container-fluid">
+		<div id="application">
+			
+		</div>
         <!--/row-->
 
         <hr>
