@@ -20,25 +20,24 @@
         },
 
 
-        addProduct: function (model, qty) {
-            if (qty > 0) {
-                model.set({ qty : qty})
-                this.orderCollection.add(model);
-                this.renderOrder();
+        addProduct: function (model) {
+            this.orderCollection.add(model);
+            if(this.orderView !== undefined){
+                this.orderView = new CartApp.OrderListView({collection: this.orderCollection});
+                this.cartLayout.order.show(this.orderView);
             }
+               // this.renderOrder();
         },
 
         removeProduct: function(model){
             this.orderCollection.remove(model);
-            this.renderOrder();
+           // this.renderOrder(); no es necesario ya que marionete renderea automaticamente
+           // aqui voy a triggerear un evento para actualizar el total.
         },
 
-        renderOrder: function(){
-            this.orderView = new CartApp.OrderListView({
-                collection: this.orderCollection
-            });
-            this.cartLayout.order.show(this.orderView);
-        },
+        //renderOrder: function(){
+           
+        // },
 
         loadProducts: function(category,id){
 

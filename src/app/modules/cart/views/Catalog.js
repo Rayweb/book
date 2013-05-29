@@ -27,7 +27,10 @@ Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
         events: { 'click .btn-primary': 'itemClick' },
 
         itemClick: function(){
-            App.vent.trigger("itemAdded", this.model, this.$('input').val());
+            if(this.$('input').val() > 0) {
+                this.model.set({ qty : this.$('input').val()});
+                App.vent.trigger("itemAdded", this.model);
+            }  
         },
 
     });
@@ -59,7 +62,7 @@ Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
         tagName: "table",
         template: "#orderGrid",
         itemView: CartApp.OrderItemView,
-        className: "table table-hover",
+        className: "table table-hover table-condensed",
 
         appendHtml: function (collectionView, itemView) {
             collectionView.$("tbody").append(itemView.el);
