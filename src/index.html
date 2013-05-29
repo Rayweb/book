@@ -44,13 +44,14 @@
 </head>
 
 <body>
+	<script id="categoryTemplate" type="text/template">
+		<a href="#<%= name%>" ><%= name%> (<%= booksOnCategory %>)</a><br/>
+	</script>
 	<script id="CatalogLayout" type="text/template">
 			<div id="Cart" class="row-fluid">
 				<div class="row-fluid">
 					<div id="categories" class="span2">
-					<a href="#Sports">Sports</a><br/>
-					<a href="#Math">Math</a><br/>
-					<a href="#History">History</a><br/>
+					
 					</div>
 					<div id="products" class="span6">
 					</div>

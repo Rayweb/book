@@ -8,8 +8,8 @@
 
         initialize: function (options) {
             var self = this;
-            this.cartLayout = new CartApp.Layout({el:'#main'});
-            this.cartLayout.render();
+            this.cartLayout = new CartApp.Layout();
+            this.mainRegion.show(this.cartLayout);
             App.vent.on("itemAdded", function (model, qty) {
                 self.addProduct(model, qty);
             });
@@ -38,25 +38,47 @@
                 collection: this.orderCollection
             });
             this.cartLayout.order.show(this.orderView);
-            //this.orderView.render();
-            //this.orderView.calculateTotal();
-            //$("#order").html(this.orderView.el);
         },
 
         loadProducts: function(category,id){
 
             this.orderCollection = new App.BookCollection();
-
-            var bookList = new App.BookCollection(Books.CartApp.Books);
+            this.bookList = new App.BookCollection(Books.CartApp.Books);
+            this.displayCategories();
             if(category){
-                var matched = bookList.where({category:category});
-                bookList.reset(matched);
+                var matched = this.bookList.where({category:category});
+                this.bookList.reset(matched);
             }
             this.bookListView = new CartApp.BookListView({
-                collection: bookList
+                collection: this.bookList
             });
             this.cartLayout.products.show(this.bookListView);
         },
+
+        displayCategories : function (){
+           
+            var Category = Backbone.Model.extend({
+                defaults :{
+                    name : '',
+                    booksOnCategory:0
+                }
+            });
+            var Categories = Backbone.Collection.extend({
+                model: Category
+            });
+            this.categories = new Categories();
+            var categoriesData = this.bookList.groupBy("category");
+            for (var key in categoriesData) {
+                var category = new Category({
+                    name:key,
+                    booksOnCategory:categoriesData[key].length
+                });
+                this.categories.add(category);
+                
+            }
+            this.categoriesView = new CartApp.CategoriesView({collection:this.categories});
+            this.cartLayout.categories.show(this.categoriesView);
+        }
 
     });
 

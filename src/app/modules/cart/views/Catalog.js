@@ -6,11 +6,22 @@ Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
         regions: {
             categories : '#categories',
             products : '#products',
-            order : '#order'
+            order : '#order',
+            book: '#book'
         }
     });
 
-    CartApp.BookItemView = Marionette.ItemView.extend({
+     CartApp.CategoryView = Backbone.Marionette.ItemView.extend({
+        template: "#categoryTemplate"
+    });
+
+
+    CartApp.CategoriesView = Backbone.Marionette.CollectionView.extend({
+        itemView:CartApp.CategoryView
+    });
+
+
+    CartApp.BookItemView = Backbone.Marionette.ItemView.extend({
         template: "#catalogRow",
         tagName: "tr",
         events: { 'click .btn-primary': 'itemClick' },
