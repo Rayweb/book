@@ -5,6 +5,7 @@
         
         orderCollection: {},
         orderView: {},
+        totals: {},
 
         initialize: function (options) {
             var self = this;
@@ -23,24 +24,18 @@
         addProduct: function (model) {
             this.orderCollection.add(model);
             if(this.orderView !== undefined){
-                this.orderView = new CartApp.OrderListView({collection: this.orderCollection});
+                this.orderView = new CartApp.OrderListView({ model : this.totals, collection: this.orderCollection});
                 this.cartLayout.order.show(this.orderView);
             }
-               // this.renderOrder();
         },
 
         removeProduct: function(model){
             this.orderCollection.remove(model);
-           // this.renderOrder(); no es necesario ya que marionete renderea automaticamente
-           // aqui voy a triggerear un evento para actualizar el total.
+            this.orderView.render();
         },
 
-        //renderOrder: function(){
-           
-        // },
-
         loadProducts: function(category,id){
-
+            this.totals = new App.TotalsModel();
             this.orderCollection = new App.BookCollection();
             this.bookList = new App.BookCollection(Books.CartApp.Books);
             this.displayCategories();
@@ -54,8 +49,8 @@
             this.cartLayout.products.show(this.bookListView);
         },
 
-        displayCategories : function (){
-           
+        displayCategories: function () {
+
             var Category = Backbone.Model.extend({
                 defaults :{
                     name : '',

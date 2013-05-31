@@ -1,4 +1,4 @@
-Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
+﻿Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
     "use strict";
 
     CartApp.Layout = Backbone.Marionette.Layout.extend({
@@ -68,11 +68,9 @@ Books.module("CartApp", function (CartApp, App, Backbone, Marionette, $, _) {
             collectionView.$("tbody").append(itemView.el);
         },
 
-        onRender : function(){
-            this.calculateTotal();
-        },
-        calculateTotal: function () {
-            this.$('input').val(this.collection.getTotal());
+        onBeforeRender: function () {
+            this.model.set({total :  this.collection.getTotal()});
         }
+
     });
 });

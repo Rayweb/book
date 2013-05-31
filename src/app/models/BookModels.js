@@ -14,4 +14,12 @@
         }
     });
 
+    App.TotalsModel = Backbone.Model.extend({
+        defaults: {
+            total : 0
+        }
+    });
+
+
+
 })(Books, Backbone.Marionette);
