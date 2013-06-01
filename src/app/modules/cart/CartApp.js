@@ -2,17 +2,15 @@
     'use strict';
 
     CartApp.Controller = App.AppController.extend({
-        
-        orderCollection: {},
-        orderView: {},
-        totals: {},
 
         initialize: function (options) {
             var self = this;
+            this.orderCollection = new App.BookCollection();
+            this.totals = new App.TotalsModel();
             this.cartLayout = new CartApp.Layout();
             this.mainRegion.show(this.cartLayout);
-            App.vent.on("itemAdded", function (model, qty) {
-                self.addProduct(model, qty);
+            App.vent.on("itemAdded", function (model) {
+                self.addProduct(model);
             });
 
             App.vent.on("itemRemoved", function (model) {
@@ -22,11 +20,8 @@
 
 
         addProduct: function (model) {
-            this.orderCollection.add(model);
-            if(this.orderView !== undefined){
-                this.orderView = new CartApp.OrderListView({ model : this.totals, collection: this.orderCollection});
-                this.cartLayout.order.show(this.orderView);
-            }
+            this.orderCollection.add(model,{merge: true});
+            this.orderView.render();
         },
 
         removeProduct: function(model){
@@ -35,8 +30,6 @@
         },
 
         loadProducts: function(category,id){
-            this.totals = new App.TotalsModel();
-            this.orderCollection = new App.BookCollection();
             this.bookList = new App.BookCollection(Books.CartApp.Books);
             this.displayCategories();
             if(category){
@@ -47,6 +40,10 @@
                 collection: this.bookList
             });
             this.cartLayout.products.show(this.bookListView);
+            if(!this.orderView){
+                 this.orderView = new CartApp.OrderListView({ model :this.totals , collection: this.orderCollection});
+                 this.cartLayout.order.show(this.orderView);
+            }
         },
 
         displayCategories: function () {
