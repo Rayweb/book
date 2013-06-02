@@ -7,7 +7,7 @@ Books.module('CartApp', {
             routes: {
                 "(:category)(/:id)": "init"
             },
-                // '': 'init'
+            
             before: function () {
                 App.startSubApp('CartApp', {
                     mainRegion: App.main,

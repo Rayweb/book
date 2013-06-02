@@ -19,7 +19,18 @@
             total : 0
         }
     });
+    
+    App.Order = Backbone.Model.extend({
+        defaults : {
+            totals : new App.TotalsModel(),
+            booksOrdered : new App.BookCollection(),
+            datePlaced : ''
+        }
+    });
 
+    App.Orders = Backbone.Collection.extend({
+        model : App.Order
+    });
 
 
 })(Books, Backbone.Marionette);
