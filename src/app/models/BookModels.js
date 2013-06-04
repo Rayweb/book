@@ -2,6 +2,7 @@
     'use strict';
 
     App.BookModel = Backbone.Model.extend({});
+    App.BookDetailModel = Backbone.Model.extend({});
 
     App.BookCollection = Backbone.Collection.extend({
         model: App.BookModel,
@@ -12,6 +13,10 @@
                     return total + value.get("price") * value.get("qty")
                 }, 0);
         }
+    });
+
+    App.BooksDetailCollection = Backbone.Collection.extend({
+        model: App.BookDetailModel,
     });
 
     App.TotalsModel = Backbone.Model.extend({

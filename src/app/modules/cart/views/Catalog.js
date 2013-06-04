@@ -20,11 +20,17 @@
         itemView:CartApp.CategoryView
     });
 
+    CartApp.BookDetailView = Backbone.Marionette.ItemView.extend({
+        template: "#bookDetail"
+    });
 
     CartApp.BookItemView = Backbone.Marionette.ItemView.extend({
         template: "#catalogRow",
         tagName: "tr",
-        events: { 'click .btn-primary': 'addItem' },
+        events: { 
+            'click .btn-primary': 'addItem',
+            'click .bookLink' : 'displayDetail'
+        },
 
         addItem: function(){
             if(this.$('input').val() > 0) {
@@ -33,6 +39,9 @@
             }  
             this.$('input').val("");
         },
+        displayDetail : function () {
+             App.vent.trigger("displayDetail", this.model);
+        }
 
     });
 

@@ -53,15 +53,19 @@
 					<div id="categories" class="span2">
 					
 					</div>
-					<div id="products" class="span6">
-					</div>
+					<div class="span6">
+						<div id="products" class="row-fluid">
+						</div>
+						<div id="book" class="row-fluid">
+						</div>
+						</div>
 					<div id="order" class="span4">
 					</div>
 				</div>
 			</div>
 	</script>
     <script id="catalogRow" type="text/template">
-        <td> <%= id%></td>
+        <td><a class="bookLink" href="#"> <%= id%></a></td>
         <td> <%= title%></td>
         <td> <%= author%></td>
         <td> <%= price%></td>
@@ -129,7 +133,10 @@
     </script>
 	<script id="emptyOrder" type="text/template">
         <div>
-		<span><p>Today free shipping.</p></span>
+			<h3>Thanks for buying with us!</h3>
+			<a href="#" class="thumbnail">
+                <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" src="../images/freeShipping.jpg">
+            </a>
 		</div>
     </script>
     <script id="catalogGrid" type="text/template">
@@ -145,7 +152,17 @@
         </thead>
         <tbody></tbody>
     </script>
-
+  <script id="bookDetail" type="text/template">
+      <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="../images/<%= imageName%>">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%= title %></h4>
+                 <%= description %>
+              </div>
+            </div>
+    </script>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">

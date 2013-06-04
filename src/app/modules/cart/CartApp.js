@@ -6,6 +6,7 @@ Books.module('CartApp', function (CartApp, App) {
         initialize: function (options) {
             var self = this;
             this.orderCollection = new App.BookCollection();
+            this.bookDetailList = new App.BooksDetailCollection(Books.CartApp.BooksDetails);
             this.totals = new App.TotalsModel();
             this.cartLayout = new CartApp.Layout();
             this.mainRegion.show(this.cartLayout);
@@ -15,6 +16,10 @@ Books.module('CartApp', function (CartApp, App) {
 
             App.vent.on("itemRemoved", function (model) {
                 self.removeProduct(model);
+            });
+
+            App.vent.on("displayDetail", function (model) {
+                self.showBook(model.get("id"));
             });
         },
 
@@ -27,6 +32,12 @@ Books.module('CartApp', function (CartApp, App) {
         removeProduct: function(model){
             this.orderCollection.remove(model);
             this.orderView.render();
+        },
+
+        showBook : function(id) {
+            var bookDetail = this.bookDetailList.get(id);
+            this.bookDetailView = new CartApp.BookDetailView({model:bookDetail});
+            this.cartLayout.book.show( this.bookDetailView)
         },
 
         loadProducts: function(category,id){
