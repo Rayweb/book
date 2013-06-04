@@ -97,8 +97,30 @@
         <tbody></tbody>
         <tfoot class="hide">
             <tr class="success">
+			    <td></td>
+				<td></td>
+				<td></td>
+                <td>Subtotal:</td>
+                <td> <%= subtotal%></td>
+			</tr>
+			<tr class="success">
+			    <td></td>
+			    <td></td>
+				<td></td>
+                <td>Tax:</td>
+                <td> <%= tax%></td>
+			</tr><tr class="success">
+			    <td></td>
+			    <td></td>
+				<td></td>
                 <td>Total:</td>
                 <td> <%= total%></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
                 <td>
                     <button id="placeOrder" class="btn btn-primary" type="button">Save</button>
                 </td>

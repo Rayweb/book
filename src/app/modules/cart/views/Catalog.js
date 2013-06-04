@@ -24,13 +24,14 @@
     CartApp.BookItemView = Backbone.Marionette.ItemView.extend({
         template: "#catalogRow",
         tagName: "tr",
-        events: { 'click .btn-primary': 'itemClick' },
+        events: { 'click .btn-primary': 'addItem' },
 
-        itemClick: function(){
+        addItem: function(){
             if(this.$('input').val() > 0) {
                 this.model.set({ qty : this.$('input').val()});
                 App.vent.trigger("itemAdded", this.model);
             }  
+            this.$('input').val("");
         },
 
     });
@@ -50,9 +51,9 @@
         template: "#orderRow",
         tagName: "tr",
 
-        events: { 'click .btn-primary': 'itemClick' },
+        events: { 'click .btn-primary': 'removeItem' },
 
-        itemClick: function(){
+        removeItem: function(){
             App.vent.trigger("itemRemoved", this.model);
         }
     });
@@ -79,7 +80,12 @@
         },
 
         onBeforeRender: function () {
-            this.model.set({total :  this.collection.getTotal()});
+            var subtotal = this.collection.getTotal();
+            var tax = subtotal * .08;
+            var total = subtotal + tax;
+            this.model.set({subtotal : subtotal});
+            this.model.set({tax : tax});
+            this.model.set({total : total});
         },
 
         onRender: function (){
