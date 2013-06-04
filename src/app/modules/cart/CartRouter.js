@@ -5,19 +5,12 @@ Books.module('CartApp', {
 
         var Router = Backbone.Router.extend({
             routes: {
+                "history/orders" : "showHistory",
                 "(:category)(/:id)": "init"
+                
             },
             
             before: function () {
-            var ordersPlaced = new Backbone.Collection();
-                ordersPlaced.localStorage = new Backbone.LocalStorage("orders");
-                ordersPlaced.fetch();
-                console.log(ordersPlaced.toJSON());
-                _.each(ordersPlaced.toArray(),function(model){
-                    model.destroy();
-                });
-                console.log(ordersPlaced.toJSON());
-
                 App.startSubApp('CartApp', {
                     mainRegion: App.main,
                 });
@@ -25,10 +18,22 @@ Books.module('CartApp', {
 
             init: function (category,id) {
                 Books.CartApp.controller.loadProducts(category,id);
+            },
+
+            showHistory : function () {
+                Books.CartApp.controller.showHistory();
             }
         });
 
         App.addInitializer(function () {
+            var ordersPlaced = new Backbone.Collection();
+            ordersPlaced.localStorage = new Backbone.LocalStorage("orders");
+            ordersPlaced.fetch();
+          //  console.log(ordersPlaced.toJSON());
+            _.each(ordersPlaced.toArray(),function(model){
+                model.destroy();
+            });
+         //   console.log(ordersPlaced.toJSON());
             var router = new Router();
         });
     }

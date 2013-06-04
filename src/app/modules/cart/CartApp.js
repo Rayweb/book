@@ -56,6 +56,14 @@ Books.module('CartApp', function (CartApp, App) {
                  this.cartLayout.order.show(this.orderView);
             }
         },
+        showHistory : function () {
+            debugger;
+            if(this.cartLayout){
+                this.cartLayout.close();
+            }
+            this.hitoricOrdersLayout = new CartApp.HistoricOrdersLayout();
+            this.mainRegion.show(this.hitoricOrdersLayout);
+        },
 
         displayCategories: function () {
 

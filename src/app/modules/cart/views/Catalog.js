@@ -11,6 +11,13 @@
         }
     });
 
+    CartApp.HistoricOrdersLayout = Backbone.Marionette.Layout.extend({
+        template: "#HistoricLayout",
+        regions: {
+            detail : '#detail',
+        }
+    });
+
     CartApp.CategoryView = Backbone.Marionette.ItemView.extend({
         template: "#categoryTemplate"
     });
@@ -39,7 +46,8 @@
             }  
             this.$('input').val("");
         },
-        displayDetail : function () {
+        displayDetail : function (e) {
+             e.preventDefault();
              App.vent.trigger("displayDetail", this.model);
         }
 
