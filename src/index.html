@@ -85,7 +85,7 @@
 
 
     <script id="orderGrid" type="text/template">
-        <thead>
+        <thead class="hide">
             <tr>
                 <th>id</th>
                 <th>Title</th>
@@ -95,7 +95,7 @@
             </tr>
         </thead>
         <tbody></tbody>
-        <tfoot>
+        <tfoot class="hide">
             <tr class="success">
                 <td>Total:</td>
                 <td> <%= total%></td>
@@ -105,7 +105,11 @@
             </tr>
         </tfoot>
     </script>
-	
+	<script id="emptyOrder" type="text/template">
+        <div>
+		<span><p>Today free shipping.</p></span>
+		</div>
+    </script>
     <script id="catalogGrid" type="text/template">
         <thead>
             <tr>

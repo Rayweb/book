@@ -1,4 +1,4 @@
-﻿Books.module('CartApp', function (CartApp, App) {
+Books.module('CartApp', function (CartApp, App) {
     'use strict';
 
     CartApp.Controller = App.AppController.extend({
@@ -31,15 +31,6 @@
 
         loadProducts: function(category,id){
             this.bookList = new App.BookCollection(Books.CartApp.Books);
-            this.bookList.localStorage = new Backbone.LocalStorage("books");
-            this.bookList.each(function(model) {
-                model.save();
-            });
-
-            var c = new Backbone.Collection();
-            c.localStorage = new Backbone.LocalStorage("books");
-            c.fetch();
-            console.log(c.toJSON());
             this.displayCategories();
             if(category){
                 var matched = this.bookList.where({category:category});

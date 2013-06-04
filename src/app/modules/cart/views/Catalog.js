@@ -56,12 +56,16 @@
             App.vent.trigger("itemRemoved", this.model);
         }
     });
-
+ 
+    CartApp.EmptyOrderView = Backbone.Marionette.ItemView.extend({
+        template : "#emptyOrder"
+    })
     
     CartApp.OrderListView = Backbone.Marionette.CompositeView.extend({
         tagName: "table",
         template: "#orderGrid",
         itemView: CartApp.OrderItemView,
+        emptyView : CartApp.EmptyOrderView,
         className: "table table-hover table-condensed",
         initialize : function () {
             this.orders = new App.Orders();
@@ -78,6 +82,13 @@
             this.model.set({total :  this.collection.getTotal()});
         },
 
+        onRender: function (){
+             if(this.collection.length > 0) {
+                this.$('thead').removeClass('hide');
+                this.$('tfoot').removeClass('hide');
+            }
+        },
+
         saveOrder : function () {
             this.order = new App.Order();
             this.order.set({
@@ -87,14 +98,8 @@
             });
             this.orders.add(this.order);
             this.order.save();
-          //  this.orders.each(function(model) {
-          //       model.save();
-          //  });
-
-            var c = new Backbone.Collection();
-            c.localStorage = new Backbone.LocalStorage("orders");
-            c.fetch();
-            console.log(c.toJSON());
+            this.collection.reset();
+            this.render();
         }
 
     });
