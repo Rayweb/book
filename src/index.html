@@ -44,10 +44,10 @@
 </head>
 
 <body>
-	<script id="categoryTemplate" type="text/template">
+    <script id="categoryTemplate" type="text/template">
 		<a href="#<%= name%>" ><%= name%> (<%= booksOnCategory %>)</a><br/>
-	</script>
-	<script id="CatalogLayout" type="text/template">
+    </script>
+    <script id="CatalogLayout" type="text/template">
 			<div id="Cart" class="row-fluid">
 				<div class="row-fluid">
 					<div id="categories" class="span2">
@@ -63,8 +63,8 @@
 					</div>
 				</div>
 			</div>
-	</script>
-	<script id="HistoricLayout">
+    </script>
+    <script id="HistoricLayout" type="text/template">
 		<div id="historicOrders" class="row-fluid">
 				<div class="row-fluid">
 					<div class="span6">
@@ -74,7 +74,7 @@
 					</div>
 				</div>
 		</div>
-	</script>
+    </script>
     <script id="catalogRow" type="text/template">
         <td><a class="bookLink" href="#"> <%= id%></a></td>
         <td> <%= title%></td>
@@ -96,6 +96,63 @@
         <td>
             <button class="btn btn-primary" type="button">Remove</button>
         </td>
+    </script>
+
+    <script id="historyRow" type="text/template">
+        <td> <%= id%></td>
+        <td> <%= datePlaced%></td>
+        <td> <%= totals.subtotal%></td>
+        <td> <%= totals.tax%></td>
+        <td> <%= totals.total%></td>
+        <td>
+            <button id="details" class="btn btn-primary" type="button">Details</button>
+        </td>
+    </script>
+
+
+    <script id="historyGrid" type="text/template">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Placed</th>
+                <th>SubTotal</th>
+                <th>Tax</th>
+                <th>Total</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+                <td>
+                    <button id="removeAll" class="btn btn-primary" type="button">Remove All</button>
+                </td>
+            </tr>
+        </tfoot>
+    </script>
+
+    <script id="detailsGrid" type="text/template">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody></tbody>        
+    </script>
+
+    <script id="detailRow" type="text/template">
+        <td> <%= id%></td>
+        <td> <%= title%></td>
+        <td> <%= price%></td>
+        <td> <%= qty%></td>
     </script>
 
 
@@ -142,7 +199,7 @@
             </tr>
         </tfoot>
     </script>
-	<script id="emptyOrder" type="text/template">
+    <script id="emptyOrder" type="text/template">
         <div>
 			<h3>Thanks for buying with us!</h3>
 			<a href="#" class="thumbnail">
@@ -163,7 +220,7 @@
         </thead>
         <tbody></tbody>
     </script>
-  <script id="bookDetail" type="text/template">
+    <script id="bookDetail" type="text/template">
       <div class="media">
               <a class="pull-left" href="#">
                 <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="../images/<%= imageName%>">
@@ -199,9 +256,8 @@
     </div>
 
     <div id="main" class="container-fluid">
-		<div id="application">
-			
-		</div>
+        <div id="application">
+        </div>
         <!--/row-->
 
         <hr>
@@ -213,6 +269,9 @@
         </footer>
 
     </div>
+    <div id="modal" class="modal hide fade in" style="display: none">
+    </div>
+
     <!--/.fluid-container-->
 
     <!-- Le javascript
@@ -223,17 +282,24 @@
     <script type="text/javascript" src="../libs/backbone.js"></script>
     <script type="text/javascript" src="../libs/backbone.marionette.js"></script>
     <script type="text/javascript" src="../libs/backbone.routefilter.js"></script>
-	<script type="text/javascript" src="../libs/backbone.localStorage.js"></script>
+    <script type="text/javascript" src="../libs/backbone.localStorage.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
 
     <script src="app/Books.js"></script>
     <script src="app/BaseController.js"></script>
 
+    <!-- Cart -->
     <script src="app/modules/cart/CartApp.js"></script>
     <script src="app/modules/cart/CartRouter.js"></script>
-    <script src="app/models/BookModels.js"></script>
     <script src="app/modules/cart/views/Catalog.js"></script>
 
+    <!-- History -->
+    <script src="app/modules/history/HistoryApp.js"></script>
+    <script src="app/modules/history/HistoryRouter.js"></script>
+    <script src="app/modules/history/views/HistoryViews.js"></script>
+
+
+    <script src="app/models/BookModels.js"></script>
     <script src="app/Books.Data.js"></script>
 
     <script src="app/main.js"></script>

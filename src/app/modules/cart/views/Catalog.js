@@ -4,9 +4,9 @@
     CartApp.Layout = Backbone.Marionette.Layout.extend({
         template: "#CatalogLayout",
         regions: {
-            categories : '#categories',
-            products : '#products',
-            order : '#order',
+            categories: '#categories',
+            products: '#products',
+            order: '#order',
             book: '#book'
         }
     });
@@ -14,7 +14,7 @@
     CartApp.HistoricOrdersLayout = Backbone.Marionette.Layout.extend({
         template: "#HistoricLayout",
         regions: {
-            detail : '#detail',
+            detail: '#detail',
         }
     });
 
@@ -24,7 +24,7 @@
 
 
     CartApp.CategoriesView = Backbone.Marionette.CollectionView.extend({
-        itemView:CartApp.CategoryView
+        itemView: CartApp.CategoryView
     });
 
     CartApp.BookDetailView = Backbone.Marionette.ItemView.extend({
@@ -34,21 +34,21 @@
     CartApp.BookItemView = Backbone.Marionette.ItemView.extend({
         template: "#catalogRow",
         tagName: "tr",
-        events: { 
+        events: {
             'click .btn-primary': 'addItem',
-            'click .bookLink' : 'displayDetail'
+            'click .bookLink': 'displayDetail'
         },
 
-        addItem: function(){
-            if(this.$('input').val() > 0) {
-                this.model.set({ qty : this.$('input').val()});
+        addItem: function () {
+            if (this.$('input').val() > 0) {
+                this.model.set({ qty: this.$('input').val() });
                 App.vent.trigger("itemAdded", this.model);
-            }  
+            }
             this.$('input').val("");
         },
-        displayDetail : function (e) {
-             e.preventDefault();
-             App.vent.trigger("displayDetail", this.model);
+        displayDetail: function (e) {
+            e.preventDefault();
+            App.vent.trigger("displayDetail", this.model);
         }
 
     });
@@ -70,27 +70,27 @@
 
         events: { 'click .btn-primary': 'removeItem' },
 
-        removeItem: function(){
+        removeItem: function () {
             App.vent.trigger("itemRemoved", this.model);
         }
     });
- 
+
     CartApp.EmptyOrderView = Backbone.Marionette.ItemView.extend({
-        template : "#emptyOrder"
+        template: "#emptyOrder"
     })
-    
+
     CartApp.OrderListView = Backbone.Marionette.CompositeView.extend({
         tagName: "table",
         template: "#orderGrid",
         itemView: CartApp.OrderItemView,
-        emptyView : CartApp.EmptyOrderView,
+        emptyView: CartApp.EmptyOrderView,
         className: "table table-hover table-condensed",
-        initialize : function () {
+        initialize: function () {
             this.orders = new App.Orders();
             this.orders.localStorage = new Backbone.LocalStorage("orders");
         },
-        events : {
-            "click #placeOrder" : "saveOrder"
+        events: {
+            "click #placeOrder": "saveOrder"
         },
         appendHtml: function (collectionView, itemView) {
             collectionView.$("tbody").append(itemView.el);
@@ -100,24 +100,24 @@
             var subtotal = this.collection.getTotal();
             var tax = subtotal * .08;
             var total = subtotal + tax;
-            this.model.set({subtotal : subtotal});
-            this.model.set({tax : tax});
-            this.model.set({total : total});
+            this.model.set({ subtotal: subtotal });
+            this.model.set({ tax: tax });
+            this.model.set({ total: total });
         },
 
-        onRender: function (){
-             if(this.collection.length > 0) {
+        onRender: function () {
+            if (this.collection.length > 0) {
                 this.$('thead').removeClass('hide');
                 this.$('tfoot').removeClass('hide');
             }
         },
 
-        saveOrder : function () {
+        saveOrder: function () {
             this.order = new App.Order();
             this.order.set({
                 totals: this.model,
-                booksOrdered : this.collection,
-                datePlaced : new Date()
+                booksOrdered: this.collection,
+                datePlaced: new Date()
             });
             this.orders.add(this.order);
             this.order.save();

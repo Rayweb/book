@@ -5,6 +5,7 @@
         constructor: function (options) {
             options = options || {};
             this.mainRegion = options.mainRegion;
+            this.modalRegion = options.modalRegion;
             Marionette.Controller.prototype.constructor.call(this, options);
         },
 
