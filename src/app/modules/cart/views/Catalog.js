@@ -19,11 +19,14 @@
     });
 
     CartApp.CategoryView = Backbone.Marionette.ItemView.extend({
+        tagName : 'li',
         template: "#categoryTemplate"
     });
 
 
     CartApp.CategoriesView = Backbone.Marionette.CollectionView.extend({
+        tagName : 'ul',
+        className : 'unstyled',
         itemView: CartApp.CategoryView
     });
 
