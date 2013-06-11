@@ -56,30 +56,12 @@ Books.module('CartApp', function (CartApp, App) {
                  this.cartLayout.order.show(this.orderView);
             }
         },
-        showHistory : function () {
-            debugger;
-            if(this.cartLayout){
-                this.cartLayout.close();
-            }
-            this.hitoricOrdersLayout = new CartApp.HistoricOrdersLayout();
-            this.mainRegion.show(this.hitoricOrdersLayout);
-        },
-
+       
         displayCategories: function () {
-
-            var Category = Backbone.Model.extend({
-                defaults :{
-                    name : '',
-                    booksOnCategory:0
-                }
-            });
-            var Categories = Backbone.Collection.extend({
-                model: Category
-            });
-            this.categories = new Categories();
+            this.categories = new App.Categories();
             var categoriesData = this.bookList.groupBy("category");
             for (var key in categoriesData) {
-                var category = new Category({
+                var category = new App.Category({
                     name:key,
                     booksOnCategory:categoriesData[key].length
                 });

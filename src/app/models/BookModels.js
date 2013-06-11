@@ -39,5 +39,15 @@
         model : App.Order
     });
 
+    App.Category = Backbone.Model.extend({
+        defaults :{
+            name : '',
+            booksOnCategory:0
+        }
+    });
+
+    App.Categories = Backbone.Collection.extend({
+        model: App.Category
+    });
 
 })(Books, Backbone.Marionette);

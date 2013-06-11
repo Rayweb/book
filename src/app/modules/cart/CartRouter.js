@@ -5,7 +5,6 @@ Books.module('CartApp', {
 
         var Router = Backbone.Router.extend({
             routes: {
-                //"history/orders" : "showHistory",
                 "(:category)(/:id)": "init"
                 
             },
@@ -26,14 +25,6 @@ Books.module('CartApp', {
         });
 
         App.addInitializer(function () {
-            //var ordersPlaced = new Backbone.Collection();
-            //ordersPlaced.localStorage = new Backbone.LocalStorage("orders");
-            //ordersPlaced.fetch();
-            // console.log(ordersPlaced.toJSON());
-            //_.each(ordersPlaced.toArray(),function(model){
-            //    model.destroy();
-            //});
-            //   console.log(ordersPlaced.toJSON());
             var router = new Router();
         });
     }
