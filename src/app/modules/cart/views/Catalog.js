@@ -20,7 +20,21 @@
 
     CartApp.CategoryView = Backbone.Marionette.ItemView.extend({
         tagName : 'li',
-        template: "#categoryTemplate"
+        template: "#categoryTemplate", 
+        events : {      
+            "mouseenter .info" : "showDetails", 
+            "mouseleave .info" : "hideDetails"     
+        },
+        showDetails : function() {
+            this.$(".info").popover({
+                title:this.model.get('name'), 
+                content:this.model.get('booksOnCategory')
+            });    
+            this.$(".info").popover('show');        
+        },
+        hideDetails : function() {
+            this.$(".info").popover('hide');   
+        },
     });
 
 

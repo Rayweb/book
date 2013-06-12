@@ -46,15 +46,16 @@
 <body>
     <script id="categoryTemplate" type="text/template">
 		<a href="#<%= name%>" ><%= name%> (<%= booksOnCategory %>)</a>
+        <button class="info">Details</buttom>
     </script>
     <script id="CatalogLayout" type="text/template">
 			<div id="Cart" class="row-fluid">
 				<div class="row-fluid">
-					<div id="categories" class="span2">
+					<div id="categories" class="span2 well">
 					
 					</div>
 					<div class="span6">
-						<div id="products" class="row-fluid">
+						<div id="products" class="row-fluid well">
 						</div>
 						<div id="book" class="row-fluid">
 						</div>
